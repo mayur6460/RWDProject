@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopSmart - E-Commerce</title>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Step<span>Up</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-3">
+            <button class="btn btn-outline-light me-2" id="loginBtn">Login</button>
+            <button class="btn btn-primary me-3" id="signupBtn">Sign Up</button>
+            <button class="btn btn-outline-light cart-icon" id="cartButton" title="Open cart">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login/Signup Modal -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="auth-modal" id="authModal">
+    <div class="auth-hero"></div>
+    <div class="auth-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2 id="authTitle">Login</h2>
+
+      <div class="social-login mb-3">
+        <button class="btn btn-primary w-100 mb-2"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+        <button class="btn btn-danger w-100 mb-2"><i class="fab fa-google"></i> Continue with Google</button>
+        <button class="btn btn-info w-100 mb-3"><i class="fab fa-twitter"></i> Continue with Twitter</button>
+      </div>
+
+      <p class="text-center">or use your email / mobile</p>
+
+      <form id="authForm">
+        <input type="text" class="form-control mb-2" placeholder="Email or Mobile" required>
+        <input type="password" class="form-control mb-2" placeholder="Password" required>
+        <button type="submit" class="btn btn-success w-100 mb-2">Login</button>
+      </form>
+
+      <p class="text-center"><span id="toggleAuth" style="color: #0d6efd; cursor:pointer;">Don't have an account? Sign Up</span></p>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <h3>Your Cart</h3>
+    <div id="cartItems">
+      <p class="text-center" id="emptyCartMessage">Your cart is empty</p>
+    </div>
+    <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+    <button class="btn btn-success w-100 mt-3" id="checkoutBtn">Checkout</button>
+    <button class="btn btn-outline-secondary w-100 mt-2" id="closeCartBtn">Continue Shopping</button>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content text-white">
+      <h2 class="display-5">Discover the Best Deals</h2>
+      <p>High-quality products at unbeatable prices.</p>
+      <a href="#products" class="btn btn-success mt-3">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Brands Section -->
+  <section id="brands" class="py-5 text-center bg-light">
+    <div class="container">
+      <h2 class="mb-4">Our Brands</h2>
+      <div class="d-flex flex-wrap justify-content-center align-items-center">
+        <a href="https://www.nike.com/" target="_blank" rel="noopener"><img src="https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png" alt="Nike" class="brand-logo"></a>
+        <a href="https://www.skechers.in/" target="_blank" rel="noopener"><img src="https://logos-world.net/wp-content/uploads/2023/02/Skechers-Emblem.png" alt="Skechers" class="brand-logo"></a>
+        <a href="https://www.adidas.com/" target="_blank" rel="noopener"><img src="https://logos-world.net/wp-content/uploads/2020/04/Adidas-Logo.png" alt="Adidas" class="brand-logo"></a>
+        <a href="https://www.puma.com/" target="_blank" rel="noopener"><img src="https://logos-world.net/wp-content/uploads/2020/04/Puma-Logo.png" alt="Puma" class="brand-logo"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="py-5">
+    <div class="container text-center">
+      <h2 class="mb-4">Featured Products</h2>
+
+      <!-- Search Bar -->
+      <input type="text" id="searchBar" class="form-control mb-4" placeholder="Search products...">
+
+      <!-- Category Filter -->
+      <div class="mb-4 category-filter">
+        <button class="btn btn-outline-primary active me-2" data-filter="all">All</button>
+        <button class="btn btn-outline-primary me-2" data-filter="men">Men</button>
+        <button class="btn btn-outline-primary me-2" data-filter="women">Women</button>
+        <button class="btn btn-outline-primary" data-filter="kids">Kids</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="row g-4" id="productsGrid">
+
+        <!-- men's shoes -->
+
+        <!-- Product 1 -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="men">
+          <div class="card product-fixed h-100 position-relative">
+            <span class="badge-discount">5% OFF</span>
+            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/2ed02aa6-f39c-4c86-a028-122c2f3c3ce4/W+ZOOM+GP+CHALLENGE+1+OSAKA+HC.png" class="card-img-top fixed-img" alt="Shoes">
+            <div class="card-body">
+              <h5 class="card-title">Nike Gp Challenge 1 'Naomi Osaka'</h5>
+              <p class="card-text">Men's Casual Shoes</p>
+              <p class="card-text"><s>₹4,999.00</s> <span class="text-success">₹1,4995.00</span></p>
+              <button class="btn btn-success add-to-cart"
+                data-id="1"
+                data-name="Nike Gp Challenge 1 'Naomi Osaka'"
+                data-price="14995.00"
+                data-image="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/2ed02aa6-f39c-4c86-a028-122c2f3c3ce4/W+ZOOM+GP+CHALLENGE+1+OSAKA+HC.png">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- product 2 -->
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="men">
+          <div class="card product-fixed h-100 position-relative">
+            <span class="badge-discount">20% OFF</span>
+            <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_350,h_350/global/311767/04/sv01/fnd/IND/fmt/png/Galaxis-Pro-Men's-Performance-Boost-Running-Shoes" class="card-img-top fixed-img" alt="Shoes">
+            <div class="card-body">
+              <h5 class="card-title">Galaxis Pro Men's</h5>
+              <p class="card-text">Performance Boost Running Shoes</p>
+              <p class="card-text"><s>₹6,999.00</s> <span class="text-success">₹4,409.00</span></p>
+              <button class="btn btn-success add-to-cart" 
+              data-id="2" 
+              data-name="Galaxis Pro Men's" 
+              data-price="4409.00" 
+              data-image="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_350,h_350/global/311767/04/sv01/fnd/IND/fmt/png/Galaxis-Pro-Men's-Performance-Boost-Running-Shoes">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- product 3 -->
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="men">
+          <div class="card product-fixed h-100 position-relative">
+            <span class="badge-discount">27% OFF</span>
+            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5daa00d9-afae-4125-a95c-fc71923b81c3/AIR+FORCE+1+%2707.png" class="card-img-top fixed-img" alt="Shoes">
+            <div class="card-body">
+              <h5 class="card-title">Nike Air Force 1'07</h5>
+              <p class="card-text">Men's Shoes</p>
+              <p class="card-text"><s>₹9,999.00</s> <span class="text-success">₹7,495.00</span></p>
+              <button class="btn btn-success add-to-cart" 
+              data-id="3" data-name="Nike Air Force 1'07" 
+              data-price="7495.00" 
+              data-image="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5daa00d9-afae-4125-a95c-fc71923b81c3/AIR+FORCE+1+%2707.png">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- product 4 -->
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="men">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">30% OFF</span>
+          <img src="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dwd2d8ce4e/images/large/197627245768-1.jpg" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">D'LUX WALKEER 2.0 - REZINATE</h5>
+            <p class="card-text">Men's Casual Shoes</p>
+            <p class="card-text">
+              <s>₹8,999.00</s> <span class="text-success">₹7,999.00</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="4"
+              data-name="MAX CUSHIONING Black"
+              data-price="₹7,999.00"
+              data-image="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dwd2d8ce4e/images/large/197627245768-1.jpg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- women's shoes -->
+
+        <!-- product 1 -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="women">
+          <div class="card product-fixed h-100 position-relative">
+            <span class="badge-discount">50% OFF</span>
+            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1d1a23f8-16be-4813-9e58-75812246ba62/W+AIR+ZOOM+PEGASUS+41.png" class="card-img-top fixed-img" alt="Shoes">
+            <div class="card-body">
+              <h5 class="card-title">Nike Pegasus 41</h5>
+              <p class="card-text">Women's Road Running Shoes</p>
+              <p class="card-text"><s>₹15,999.00</s> <span class="text-success">₹11,895.00</span></p>
+              <button class="btn btn-success add-to-cart" 
+              data-id="1" 
+              data-name="Nike Pegasus 41" 
+              data-price="11895.00" 
+              data-image="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1d1a23f8-16be-4813-9e58-75812246ba62/W+AIR+ZOOM+PEGASUS+41.png">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+          
+
+        <!-- product 2 -->
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="women">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">75% OFF</span>
+          <img src="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw9b0a3a69/images/large/198376857561-1.jpg" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">GO RUN ELEVATE 2 </h5>
+            <p class="card-text">Women's Running Shoes</p>
+            <p class="card-text">
+              <s>₹7,999.00</s> <span class="text-success">₹6,999.20</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="2"
+              data-name="GO RUN ELEVATE 2"
+              data-price="₹6,999.20"
+              data-image="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw9b0a3a69/images/large/198376857561-1.jpg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- product 3 -->
+
+       <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="women">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">40% OFF</span>
+          <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_350,h_350/global/399844/06/sv01/fnd/IND/fmt/png/Court-Shatter-Low-Sneakers" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">Court Shatter Low Sneakers</h5>
+            <p class="card-text">Women's Sneakers</p>
+            <p class="card-text">
+              <s>₹5,999.00</s> <span class="text-success">₹3,599.00</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="3"
+              data-name="Women's Sneakers"
+              data-price="₹3,599.00"
+              data-image="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_350,h_350/global/399844/06/sv01/fnd/IND/fmt/png/Court-Shatter-Low-Sneakers">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+        <!-- product 4 -->
+
+      <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="women">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">10% OFF</span>
+          <img src="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/d195e17461d5480d81c1c6cf8e5ca92d_9366/sl-72-rs-shoes.jpg" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">SL 72 RS Shoes</h5>
+            <p class="card-text">Women's Shoes</p>
+            <p class="card-text">
+              <s>₹12,999.00</s> <span class="text-success">₹9,999.20</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="4"
+              data-name="SL 72 RS Shoes"
+              data-price="₹9,999.20"
+              data-image="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/d195e17461d5480d81c1c6cf8e5ca92d_9366/sl-72-rs-shoes.jpg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- kid's products -->
+
+       <!-- Product 1  -->
+
+      <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="kids">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">5% OFF</span>
+          <img src="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw0b3f8abb/images/large/196642626330-1.jpg" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">UNO GEN-1 COOL HEELS</h5>
+            <p class="card-text">Kid's Shoes</p>
+            <p class="card-text">
+              <s>₹6,999.00</s> <span class="text-success">₹5,499.00</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="1"
+              data-name="UNO GEN-1 COOL HEELS"
+              data-price="5,499.00"
+              data-image="https://www.skechers.in/on/demandware.static/-/Sites-skechers_india/default/dw0b3f8abb/images/large/196642626330-1.jpg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+
+       <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="kids">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">60% OFF</span>
+          <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/548ffe7c-4df0-48f7-a0bb-693fce424328/NIKE+DUNK+LOW+SE+%28GS%29.png" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">Nike Dunk Low SE</h5>
+            <p class="card-text">Older kid's Shoes</p>
+            <p class="card-text">
+              <s>₹8,599.00</s> <span class="text-success">₹7,995.20</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="2"
+              data-name="Nike Dunk Low SE"
+              data-price="7,995.20"
+              data-image="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/548ffe7c-4df0-48f7-a0bb-693fce424328/NIKE+DUNK+LOW+SE+%28GS%29.png">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+
+      <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="kids">
+        <div class="card product-fixed h-100">
+          <span class="badge-discount">45% OFF</span>
+          <img src="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/52fcc597520244659fe766e718d4fede_9366/mercedes---amg-petronas-formula-one-team-ultimashow-2.0-shoes-junior.jpg" class="card-img-top fixed-img" alt="Shoes">
+          <div class="card-body">
+            <h5 class="card-title">MERCEDES - AMG PETRONAS FORMULA ONE TEAM</h5>
+            <p class="card-text">Kis's MotorSport</p>
+            <p class="card-text">
+              <s>₹7,999.00</s> <span class="text-success">₹5,999.00</span>
+            </p>
+            <button class="btn btn-success add-to-cart"
+              data-id="3"
+              data-name="MERCEDES - AMG PETRONAS FORMULA ONE TEAM"
+              data-price="5,999.00"
+              data-image="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/52fcc597520244659fe766e718d4fede_9366/mercedes---amg-petronas-formula-one-team-ultimashow-2.0-shoes-junior.jpg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- product 4 -->
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="kids">
+          <div class="card product-fixed h-100 position-relative">
+            <span class="badge-discount">43% OFF</span>
+            <img src="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/794d410e877c4eb499aa87f6ff01c7d3_9366/samba-og-shoes.jpg" class="card-img-top fixed-img" alt="Shoes">
+            <div class="card-body">
+              <h5 class="card-title">Samba OG Shoes</h5>
+              <p class="card-text">Kids Originals</p>
+              <p class="card-text"><s>₹10,999.00</s> <span class="text-success">₹3,999.20</span></p>
+              <button class="btn btn-success add-to-cart" 
+              data-id="4" 
+              data-name="Samba OG Shoes" 
+              data-price="3999.20" 
+              data-image="https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/794d410e877c4eb499aa87f6ff01c7d3_9366/samba-og-shoes.jpg">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Section -->
+  <section id="reviews" class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="mb-4">What Our Customers Say</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-4"><div class="p-3 bg-white shadow-sm rounded"><p>"Fantastic quality and fast delivery!"</p><h6>-Sagil</h6></div></div>
+        <div class="col-md-4"><div class="p-3 bg-white shadow-sm rounded"><p>"Affordable prices and great support."</p><h6>-Jay</h6></div></div>
+        <div class="col-md-4"><div class="p-3 bg-white shadow-sm rounded"><p>"Love the selection of products!"</p><h6>-Harsh</h6></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Contact Us</h2>
+      <form class="mx-auto" style="max-width: 600px;">
+        <div class="mb-3"><input type="text" class="form-control" placeholder="Your Name" required /></div>
+        <div class="mb-3"><input type="email" class="form-control" placeholder="Your Email" required /></div>
+        <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Your Message" required></textarea></div>
+        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-md-4 footer-section">
+          <h5>Contact Info</h5>
+          <p>ShopSmart Pvt. Ltd.<br>123 Market Street<br>Ahmedabad, India</p>
+          <p>Email: support@shopsmart.com<br>Phone: +91 9876543210</p>
+        </div>
+        <div class="col-md-4 footer-section"><h5>Follow Us</h5><div class="footer-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+        <div class="col-md-4 footer-section"><h5>Payment Methods</h5><div class="payment-icons"><img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa"><img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard"><img src="https://img.icons8.com/color/48/000000/paypal.png" alt="PayPal"><img src="https://img.icons8.com/color/48/000000/google-pay-india.png" alt="Google Pay"></div></div>
+      </div>
+      <hr style="background-color: #666;">
+      <p class="text-center mb-0">&copy; 2025 ShopSmart. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="rwd.js"></script>
+</body>
+</html>
